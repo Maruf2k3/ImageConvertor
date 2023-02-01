@@ -1,0 +1,65 @@
+body {
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: sans-serif;
+    color: #fff;
+}
+
+
+form {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+}
+
+form:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+input[type="file"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    padding: 10px;
+    margin: 0px 50px;
+    margin-bottom: 120px;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease-in-out;
+}
+
+input[type="file"]:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+button[type="button"] {
+    background-color: #fff;
+    color: #222;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease-in-out;
+}
+
+button[type="button"]:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#error-message {
+    color: #ff0000;
+    margin-top: 20px;
+    font-size: 12px;
+}

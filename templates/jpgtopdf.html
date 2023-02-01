@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='jpgtopdf.css') }}">
+    <title>JPG to PDF Converter</title>
+</head>
+<body>
+    <form>
+        <h1>JPG to PDF</h1>
+        <input type="file" id="image" accept=".jpg">
+        <br><br>
+        <img id="preview" style="display: none; max-width: 200px;">
+        <br><br>
+        <button type="button" id="convert-btn">Convert to PDF</button>
+    </form>
+    <div id="error-message"></div>
+    <script>
+        const convertBtn = document.querySelector("#convert-btn");
+        const imageInput = document.querySelector("#image");
+        const preview = document.querySelector("#preview");
+        const errorMessage = document.querySelector("#error-message");
+
+        imageInput.addEventListener("change", () => {
+            const image = imageInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                preview.src = event.target.result;
+                preview.style.display = "block";
+            };
+            
+            reader.readAsDataURL(image);
+        });
+
+        
+        convertBtn.addEventListener("click", () => {
+            const image = imageInput.files[0];
+            if (!image) {
+                errorMessage.innerHTML = "Please select an image.";
+                return;
+            }
+            if (image.type !== "image/jpeg") {
+                errorMessage.innerHTML = "The selected file is not a JPEG image.";
+                return;
+            }
+            if (image.size > 5000000) {
+                errorMessage.innerHTML = "The selected image is larger than 5 MB.";
+                return;
+            }
+            errorMessage.innerHTML = "";
+            const formData = new FormData();
+            formData.append("image", image);
+            fetch("/api/jpgtopdf", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+</html>
